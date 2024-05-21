@@ -1,0 +1,53 @@
+syntax = "proto3";
+import "utility.proto";
+ 
+ 
+
+option csharp_namespace = "RMS.GrpcService";
+
+package commitee;
+
+service RpcCommitee {
+	rpc InsertCommitee (CommiteeRequest) returns (CommiteeResponse);
+	rpc UpdateCommitee (CommiteeRequest) returns (CommiteeResponse);
+	rpc DeleteCommitee (CommiteeLookupModel) returns (CommiteeResponse);
+	rpc GetCommiteeById (CommiteeLookupModel) returns (CommiteeRequest);
+	rpc GetAllCommitees (ResCommiteeLookupModel) returns (CommiteesList);
+	 
+}
+
+message CommiteeResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message CommiteeRequest {
+	string CommiteeId = 1;	 	 
+	string Name = 2;
+	optional string Unit = 3;
+	optional string Position = 4;
+	optional string ContactNumber = 5; 
+	string DateCreated = 6;
+	string DateModified = 7;
+	utility.ErrorModel Error = 8;	 
+	string ResidenceId = 9;
+	 
+}
+
+message CommiteeLookupModel {
+	string CommiteeId = 1;
+}
+
+ 
+
+message ResCommiteeLookupModel {
+	string ResidenceId = 1;
+}
+
+message CommiteesList {
+	repeated CommiteeRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}
+
+ 

@@ -1,0 +1,90 @@
+syntax = "proto3";
+import "utility.proto";  
+package authentication;
+
+service RpcAuthentication{
+	rpc AppUserAuthenticate(AuthenticationRequest) returns(AppAuthenticationResponse);
+	rpc AppGuardAuthenticate(AuthenticationRequest) returns(AppAuthenticationResponse);
+	rpc AppWorkerAuthenticate(AuthenticationRequest) returns(AppAuthenticationResponse);
+	rpc Authenticate(AuthenticationRequest) returns(AuthenticationResponse);
+	rpc RefreshToken(AuthenticationRequest) returns(AuthenticationResponse);
+	rpc AccountActivate (AccountActivateRequest) returns (AccountActivateResponse); 
+	rpc ForgotPassword (ForgotPasswordRequest) returns (ForgotPasswordResponse);
+	rpc ResetPassword (ResetPasswordRequest) returns (ResetPasswordResponse);
+	rpc AppDeviceTokenUpdate(DeviceTokenRequest) returns (DeviceTokenResponse);
+}
+message DeviceTokenResponse{
+	string Response = 1;
+	utility.ErrorModel Error = 2;
+	 
+}
+message DeviceTokenRequest{
+	string DeviceToken = 1;
+	string UserId = 2;
+	 
+}
+message AuthenticationRequest{	
+	string Email = 1;
+	string Password = 2;
+	string AccessTokenSecret = 3;
+	string AesSecret = 4;
+	double AccesTokenExpirationMinutes = 5;
+	string Issuer = 6;
+	string Audience = 7;
+	string RefreshTokenSecret = 8;
+	double RefreshTokenExpirationMinutes = 9;
+	string Id = 10;
+	string UserName = 11;
+	repeated utility.AccountRoleModel Role = 12;
+	string RefreshToken = 13;
+	string ResidenceId = 14;
+}
+
+message AuthenticationResponse{
+	string AccessToken = 1;
+	string RefreshToken = 2;
+	utility.ErrorModel Error = 3;
+}
+message AppAuthenticationResponse{
+	string AccessToken = 1;
+	string RefreshToken = 2;	 
+	utility.ErrorModel Error = 3;
+}
+
+message AccountActivateRequest {
+	string Email = 1;
+	string Otp = 2;
+	string PasswordHash = 3;
+}
+
+message AccountActivateResponse {
+	string Response = 1;
+	utility.ErrorModel Error = 2;
+}
+
+message ForgotPasswordRequest {
+	string Id = 1;
+	string Email = 2;
+	string ForgotPasswordSecret = 3;
+	string AesSecret = 4;
+	double ForgotPasswordExpirationMinutes = 5;
+	string Issuer = 6;
+	string Audience = 7;
+}
+
+message ForgotPasswordResponse {
+	string AccessToken = 1;
+	utility.ErrorModel Error = 2;
+	string Response = 3;
+}
+
+message ResetPasswordRequest {
+	string Token = 1;
+	string Id = 2;
+	string PasswordHash = 3;
+}
+
+message ResetPasswordResponse {
+	string Response = 1;
+	utility.ErrorModel Error = 2;
+}

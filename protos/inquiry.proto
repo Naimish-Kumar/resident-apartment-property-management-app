@@ -1,0 +1,50 @@
+syntax = "proto3";
+import "utility.proto"; 
+
+option csharp_namespace = "RMS.GrpcService";
+
+package inquiry;
+
+service RpcInquiry {
+	rpc InsertInquiry (InquiryRequest) returns (InquiryResponse);
+	rpc UpdateInquiry (InquiryRequest) returns (InquiryResponse);
+	rpc DeleteInquiry (InquiryLookupModel) returns (InquiryResponse);
+	rpc GetInquiryById (InquiryLookupModel) returns (InquiryRequest);
+	rpc GetAllInquirys (ResInquiryLookupModel) returns (InquirysList);
+	 
+}
+
+message InquiryResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message InquiryRequest {
+	string InquiryId = 1;	 	 
+	string Subject = 2;
+	optional string Message = 3;
+	utility.StatusModel Status = 4;
+	string DateCreated = 5;
+	string DateModified = 6;
+	utility.ErrorModel Error = 7;	 
+	string ResidenceId = 8;
+	 
+}
+
+message InquiryLookupModel {
+	string InquiryId = 1;
+}
+
+ 
+
+message ResInquiryLookupModel {
+	string ResidenceId = 1;
+}
+
+message InquirysList {
+	repeated InquiryRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}
+
+ 

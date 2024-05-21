@@ -1,0 +1,108 @@
+name: user_app
+description: "A new Flutter project."
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.4 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+  flutter_pdfview: ^1.2.7
+
+  camera: ^0.10.5+9
+  #Common
+  nb_utils: ^4.5.0
+  html: ^0.15.0
+  http: ^0.13.5
+  intl: ^0.17.0
+  async: ^2.2.0
+  protobuf: ^2.1.0
+  grpc: ^3.0.2
+  #datetime_picker_formfield: ^1.0.0
+  barcode_scan2: ^4.2.1
+  qr_flutter: ^4.0.0
+
+  #Google Font
+  google_fonts: ^4.0.0
+
+  #Icon
+  flutter_vector_icons: ^1.0.0
+  flutter_svg: ^1.0.3
+
+  #Image
+  image_picker: ^0.8.5
+  photo_view: ^0.13.0
+  file_picker: ^4.5.1
+  cached_network_image: ^3.2.0
+  stamp_image: ^0.0.2
+
+  #Other
+  date_time_picker: ^2.1.0
+  url_launcher: ^6.1.2
+  flutter_rating_bar: ^4.0.0
+  country_code_picker: ^2.0.2
+  otp_text_field: ^1.1.2
+  flutter_staggered_animations: 1.0.0
+  flutter_custom_tabs: ^1.0.4
+  whatsapp_unilink: ^2.0.2
+
+  # Package Info
+  package_info: ^2.0.2
+
+  # Permission
+  permission_handler: ^9.2.0
+
+  #Social Login
+  google_sign_in: ^5.3.0
+
+  # Firebase
+  # firebase_crashlytics: ^2.6.3
+  # firebase_core: ^1.15.0
+  # firebase_auth: ^3.3.15
+  # firebase_storage: ^10.2.13
+  # firebase_database: ^9.0.12
+  # cloud_firestore: ^3.1.13
+  # paginate_firestore: ^1.0.3+1
+
+  ## Map
+  google_maps_flutter: ^2.1.3
+  geolocator: ^8.2.0
+  geocoding: ^2.0.4
+
+  #Push Notification
+  #firebase_messaging: ^11.2.15
+
+  # Mobx
+  mobx: ^2.0.7
+  flutter_mobx: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  build_runner: ^2.1.10
+  mobx_codegen: ^2.0.6
+  #flutter packages pub run build_runner build --delete-conflicting-outputs
+  shared_preferences: ^2.0.7
+  dart_jsonwebtoken: ^2.4.0
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "images/app_images/ic_app_logo.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - images/icons/
+    - images/
+    - images/flag/
+    - images/app_images/
+    - images/icons/

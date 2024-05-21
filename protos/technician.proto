@@ -1,0 +1,65 @@
+syntax = "proto3";
+import "utility.proto";
+ 
+
+option csharp_namespace = "RMS.GrpcService";
+
+package technician;
+
+service RpcTechnician {
+	rpc InsertTechnician (TechnicianRequest) returns (TechnicianResponse);
+	rpc UpdateTechnician (TechnicianRequest) returns (TechnicianResponse);
+	rpc DeleteTechnician (TechnicianLookupModel) returns (TechnicianResponse);
+	rpc GetTechnicianById (TechnicianLookupModel) returns (TechnicianRequest);
+	rpc GetAllTechnicians (utility.Empty) returns (TechniciansList);
+	// App Stuff Start
+	rpc StatusUpdateTechnician (TechnicianRequest) returns (TechnicianResponse);
+	rpc GetPendingTechnicianById (TechnicianLookupModel) returns (TechniciansList);
+	rpc GetActiveTechnicianById (TechnicianLookupModel) returns (TechniciansList);
+	rpc GetCompleteTechnicianById (TechnicianLookupModel) returns (TechniciansList);
+	rpc ViewTechnicianById (TechnicianLookupModel) returns (TechnicianDocsModel);
+	rpc DeleteTechnicianDocument (TechnicianLookupModel) returns (TechnicianResponse);
+	rpc GetAllTechniciansFilter (TechnicianRequest) returns (TechniciansList);
+	// End
+}
+
+message TechnicianResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message TechnicianRequest {
+	string TechnicianId = 1;
+	string TechnicianUserId = 2;
+	string ManagementId = 3;
+	string JobTitle = 4;
+	optional string Description = 5;	
+	utility.StatusModel Status = 6;
+	string DateCreated = 7;
+	string DateModified = 8;
+	utility.ErrorModel Error = 9;
+	string TechnicianName = 10;
+	utility.PrioritiesModel Priorities = 11;
+	bytes Proof = 12;
+	repeated TechnicianDocsModel TechnicianDocs = 13;
+	string Remark = 14;
+	bool isViewed =15;
+}
+
+message TechnicianLookupModel {
+	string TechnicianId = 1;
+}
+
+message TechniciansList {
+	repeated TechnicianRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}
+message TechnicianDocsModel{
+	string TechnicianDocId = 1;
+	bytes File = 2;
+	string FileType = 3;
+	string FileName = 4;
+	TechnicianRequest Technician = 5;
+	utility.ErrorModel Error = 6;
+}

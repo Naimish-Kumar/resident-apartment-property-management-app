@@ -1,0 +1,46 @@
+syntax = "proto3";
+import "utility.proto";
+import "residence.proto";
+ 
+
+option csharp_namespace = "RMS.Web";
+
+package building;
+
+service RpcBuilding {
+	rpc InsertBuilding (BuildingRequest) returns (BuildingResponse);
+	rpc UpdateBuilding (BuildingRequest) returns (BuildingResponse);
+	rpc DeleteBuilding (BuildingLookupModel) returns (BuildingResponse);
+	rpc GetBuildingById (BuildingLookupModel) returns (BuildingRequest);
+	rpc GetAllBuildings (utility.Empty) returns (BuildingsList);
+}
+
+message BuildingResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message BuildingRequest {
+	string BuildingId = 1;
+	string BuildingName = 2;
+	string BuildingPrefix = 3;	
+	int32 TotalFloor = 4;
+	int32 UnitPerFloor = 5;
+	optional string Description = 6;	
+	utility.StatusModel Status = 7;
+	string DateCreated = 8;
+	string DateModified = 9;
+	utility.ErrorModel Error = 10;
+	residence.ResidenceRequest residence = 11;
+	bool IsUnitCreated = 12;
+}
+
+message BuildingLookupModel {
+	string BuildingId = 1;
+}
+
+message BuildingsList {
+	repeated BuildingRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}

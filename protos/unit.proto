@@ -1,0 +1,116 @@
+syntax = "proto3";
+import "utility.proto";
+import "building.proto";
+import "user.proto";
+ 
+ 
+
+option csharp_namespace = "RMS.Web";
+
+package unit;
+
+service RpcUnit {
+	rpc InsertUnit (UnitRequestList) returns (UnitResponse);
+	rpc UpdateUnit (UnitRequest) returns (UnitResponse);
+	rpc DeleteUnit (UnitLookupModel) returns (UnitResponse);
+	rpc DeleteAllUnit (UnitListLookupModel) returns (UnitResponse);
+	rpc GetUnitById (UnitLookupModel) returns (UnitRequest);
+	rpc GetAllUnits (utility.Empty) returns (UnitsList);
+	rpc GetUnitDocById (UnitDocLookUpModel) returns (UnitDocModel);
+	rpc GetUnitListById (UnitListLookupModel) returns (UnitsList);
+	rpc GetSoldUnitListById (UnitListLookupModel) returns (UnitsList);
+	rpc GetResidentUnitListById (ResidentUnitListLookupModel) returns (UnitsList);
+	rpc GetSoldResidentUnitListById (ResidentUnitListLookupModel) returns (UnitsList);
+	rpc GetResidentOwnerUnitListById (ResidentUnitListOwnerLookupModel) returns (UnitsList);	 
+	rpc UpdateTenantUnit (UnitRequest) returns (UnitResponse);
+	rpc GetOwnerAndTententUnitById (UnitLookupModel) returns (OwnerTenantIfo);
+}
+message OwnerTenantIfo{
+    user.UserRequest Owner = 1;
+    user.UserRequest Tenant = 2;
+	utility.ErrorModel Error = 3;
+    
+}
+message UnitResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message UnitLookupModel {
+	string UnitId = 1;
+}
+message ResidentUnitListOwnerLookupModel {
+	string ResidentId = 1;
+	string UserId = 2;
+}
+
+message UnitListLookupModel {
+	string BuildingId = 1;
+}
+
+message ResidentUnitListLookupModel {
+	string ResidentId = 1;
+}
+
+message UnitDocLookUpModel {
+	string UnitDocId = 1;
+}
+
+message UnitRequestList{
+	repeated UnitRequest Items = 1;
+	string BuildingId = 2;
+	utility.ErrorModel Error = 3;
+}
+
+message UnitRequest {
+	string UnitId = 1;
+	string UnitPrefix = 2;
+	string UnitFloorNumber = 3;
+	string UnitNumber = 4;
+	bool IsPrimary = 5;
+	utility.UnitRoleModel UnitRole = 6;
+	utility.UnitFurnishTypeModel UnitFurnishType = 7;
+	utility.UnitTypeModel UnitType = 8;
+	optional string LeaseFrom = 9;
+	optional string LeaseTo = 10;
+	double UnitPrice = 11;
+	int32 NumberOfBedRoom = 12;
+	int32 NumberOfBathroom = 13;
+	optional string Description = 14;
+	utility.UnitStatusModel UnitStatus = 15;
+	optional string UnitSoldDate = 16;
+	building.BuildingRequest Building = 17;
+	user.UserRequest User = 18;
+	repeated UnitDocModel UnitDocs = 19;
+	TenantRequest Tenant = 20;
+	string DateCreated = 21;
+	string DateModified = 22;
+	string BuildingId = 23;
+	string UserId = 24;
+	utility.ErrorModel Error = 25;
+}
+
+message TenantRequest{
+    string AddTenantId = 1;
+    UnitRequest Unit = 2;
+    user.UserRequest User = 3;
+    utility.UnitRoleModel UnitRole = 4;
+    optional string TenantStart = 5;
+    optional string TenantEnd = 6;
+    utility.StatusModel Status = 7;
+}
+
+message UnitDocModel{
+	string UnitDocId = 1;
+	bytes File = 2;
+	string FileType = 3;
+	string FileName = 4;
+	UnitRequest Unit = 5;
+	utility.ErrorModel Error = 6;
+}
+
+message UnitsList {
+	repeated UnitRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}

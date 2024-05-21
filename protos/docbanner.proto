@@ -1,0 +1,60 @@
+syntax = "proto3";
+import "utility.proto";
+ 
+
+option csharp_namespace = "RMS.GrpcService";
+
+package docbanner;
+
+service RpcDocBanner {
+	rpc InsertDocBanner (DocBannerRequest) returns (DocBannerResponse);
+	rpc UpdateDocBanner (DocBannerRequest) returns (DocBannerResponse);
+	rpc DeleteDocBanner (DocBannerLookupModel) returns (DocBannerResponse);
+	rpc GetDocBannerById (DocBannerLookupModel) returns (DocBannerRequest);
+	rpc GetAllDocBanners (ResDocBannerLookupModel) returns (DocBannersList);
+	rpc GetDocBannerDocById (DocBannerDocLookupModel) returns (DocBannerDocsModel);
+}
+
+message DocBannerResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message DocBannerRequest {
+	string DocBannerId = 1;
+	string Title = 2;
+	string Description = 3;
+	repeated DocBannerDocsModel DocBannerDocs = 4;
+	utility.DocBannerTypeModel DocBannerType = 5;
+	string DateCreated = 6;
+	string DateModified = 7;
+	string ResidenceId = 8;
+	utility.ErrorModel Error = 9;
+}
+
+message DocBannerLookupModel {
+	string DocBannerId = 1;
+}
+
+message DocBannerDocLookupModel {
+	string DocBannerDocId = 1;
+}
+
+message ResDocBannerLookupModel {
+	string ResidenceId = 1;
+}
+
+message DocBannersList {
+	repeated DocBannerRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}
+
+message DocBannerDocsModel{
+	string DocBannerDocsId = 1;
+	bytes File = 2;
+	string FileType = 3;
+	string FileName = 4;
+	DocBannerRequest DocBanner = 5;
+	utility.ErrorModel Error = 6;
+}

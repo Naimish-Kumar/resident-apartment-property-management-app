@@ -1,0 +1,69 @@
+syntax = "proto3";
+import "utility.proto";
+import "residence.proto";
+//import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "RMS.Web";
+
+package management;
+
+service RpcManagement {
+	rpc InsertManagement (ManagementRequest) returns (ManagementResponse);
+	rpc UpdateManagement (ManagementRequest) returns (ManagementResponse);
+	rpc DeleteManagement (ManagementLookupModel) returns (ManagementResponse);
+	rpc GetManagementById (ManagementLookupModel) returns (ManagementRequest);
+	rpc GetAllManagements (utility.Empty) returns (ManagementsList);
+	rpc GetManagementDocById (ManagementDocLookUpModel) returns (ManagementDocModel);
+}
+
+message ManagementResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message ManagementLookupModel {
+	string ManagementId = 1;
+}
+
+message ManagementDocLookUpModel {
+	string ManagementDocId = 1;
+}
+
+message ManagementRequest {
+	string ManagementId = 1;
+	string Name = 2;
+	optional string PhoneNumber = 3;
+	optional string OfficeNumber = 4;
+    string EmailAddress = 5;
+    optional string CorporateEmailAddress = 6;
+    string Address1 = 7;
+    optional string Address2 = 8;
+    string City = 9;
+	utility.StateListModel State = 10;
+	int32 ZipCode = 11;
+    string Country = 12;
+    optional string Description = 13;
+	utility.StatusModel Status = 14;
+	string DateCreated = 15;
+	string DateModified = 16;
+	repeated ManagementDocModel ManagementDocs = 17;
+	string FileType = 18;
+	string FileName = 19;
+	utility.ErrorModel Error = 20;
+	residence.ResidenceRequest residence = 21;
+}
+
+message ManagementDocModel{
+	string ManagementDocId = 1;
+	bytes File = 2;
+	string FileType = 3;
+	string FileName = 4;
+	ManagementRequest Management = 5;
+	utility.ErrorModel Error = 6;
+}
+
+message ManagementsList {
+	repeated ManagementRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}

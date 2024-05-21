@@ -1,0 +1,65 @@
+syntax = "proto3";
+import "utility.proto";
+import "unit.proto";
+ 
+ 
+
+option csharp_namespace = "RMS.GrpcService";
+
+package visitor;
+
+service RpcVisitor {
+	rpc InsertVisitor (VisitorRequest) returns (VisitorResponse);
+	rpc UpdateVisitor (VisitorRequest) returns (VisitorResponse);
+	rpc GuardUpdateVisitor (VisitorRequest) returns (VisitorResponse);
+	rpc DeleteVisitor (VisitorLookupModel) returns (VisitorResponse);
+	rpc GetVisitorById (VisitorLookupModel) returns (VisitorRequest);
+	rpc GetAllVisitors (ResidenceVisitorLookupModel) returns (VisitorsList);
+	rpc GetAllCheckInVisitors (ResidenceVisitorLookupModel) returns (VisitorsList);
+	rpc GetAllCheckOutVisitors (ResidenceVisitorLookupModel) returns (VisitorsList);
+	rpc GetAllVisitorsByUserId (VisitorRequest) returns (VisitorsList);
+	rpc UserInsertVisitor (VisitorRequest) returns (VisitorResponse);
+	rpc GetAllOvernightParkingVisitors (ResidenceVisitorLookupModel) returns (VisitorsList);
+}
+
+message VisitorResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message VisitorRequest {
+	string VisitorId = 1;
+	string ResidenceId = 2;	
+	string UnitId = 3;
+	string UserId = 4;
+	string BuildingId = 5;
+	string Name = 6;
+	string ICNumber = 7;
+	utility.PerpouseOfVisitModel PerpouseOfVisit = 8;
+	utility.VisitByModel VisitBy = 9;
+	string VehicleNumber = 10;
+	bool IsPreVisit = 11;
+	string ParkingId = 12;
+	string CheckIn = 13;
+	string CheckOut = 14;
+	utility.ErrorModel Error = 15;
+	bool IsCheckIn = 16;
+	bool IsCheckOut = 17;
+	bytes ICProof = 18;	
+	unit.OwnerTenantIfo OwnerTenantIfo =19;
+	 
+}
+
+message VisitorLookupModel {
+	string VisitorId = 1;
+}
+
+message ResidenceVisitorLookupModel {
+	string ResidenceId = 1;
+}
+
+message VisitorsList {
+	repeated VisitorRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}

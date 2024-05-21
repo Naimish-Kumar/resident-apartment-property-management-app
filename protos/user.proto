@@ -1,0 +1,75 @@
+syntax = "proto3";
+import "utility.proto";
+//import "google/protobuf/wrappers.proto";
+
+
+option csharp_namespace = "RMS.Web";
+
+package user;
+
+ service RpcUser {
+	rpc InsertUser (UserRequest) returns (UserResponse);
+	rpc UpdateUser (UserRequest) returns (UserResponse);
+	rpc DeleteUser (UserLookupModel) returns (UserResponse);
+	rpc GetUserById (UserLookupModel) returns (UserRequest);
+	rpc GetAllUsers (utility.Empty) returns (UsersList);
+	rpc GetAllResidentUsers (ResidenceUserLookupModel) returns (UsersList);
+}
+
+message UserResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message UserRequest {
+	string UserId = 1;
+	string FirstName = 2;
+	string LastName = 3;
+	string DOB = 4;
+    string Email = 5;
+    string RegisteredHostName = 6;
+	utility.GenderModel Gender = 7;
+	utility.StatusModel Status = 8;
+	repeated utility.AccountRoleModel Role = 9;
+	string Occupation = 10;
+    string NRIC = 11;
+    string Passport = 12;
+	string PhoneNumber = 13;
+	bytes ProfilePicture = 14; 
+	string CreatedBy = 15;
+	string BankName = 16;
+	string AccountNumber = 17;
+	string AccountHolderName = 18;
+	string RegisteredIP = 19;
+	string LastLoginIP = 20;
+	string LastLogin = 21;
+	int32 IsPasswordFormat = 22;
+	string LastPasswordUpdated = 23;
+	bool Terms = 24;
+	string DateCreated = 25;
+	string DateModified = 26;
+	utility.ErrorModel Error = 27;
+	utility.NationalityModel Nationality = 28;
+	string ModifiedBy = 29;
+	string ModifiedIP = 30;
+	string ModifiedHostName = 31;
+	int32 ModifiedCount = 32;
+	string ResidenceId = 33;
+	string ResidenceName = 34;
+	string ParkingLotNo = 35;
+}
+
+
+message UserLookupModel {
+	string UserId = 1;
+}
+
+message ResidenceUserLookupModel {
+	string ResidenceId = 1;
+}
+
+message UsersList {
+	repeated UserRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}

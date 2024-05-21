@@ -1,0 +1,52 @@
+syntax = "proto3";
+import "utility.proto";
+import "residence.proto";
+//import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "RMS.GrpcService";
+
+package providerservice;
+
+ service RpcSerProvider {
+	rpc InsertSerProvider (SerProviderRequest) returns (SerProviderResponse);
+	rpc UpdateSerProvider (SerProviderRequest) returns (SerProviderResponse);
+	rpc DeleteSerProvider (SerProviderLookupModel) returns (SerProviderResponse);
+	rpc GetSerProviderById (SerProviderLookupModel) returns (SerProviderRequest);
+	rpc GetAllSerProviders (ResSerProviderLookupModel) returns (SerProvidersList);
+}
+
+message SerProviderResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message SerProviderRequest {
+	string SerProviderId = 1;
+	string CompanyName = 2;
+	string Description = 3;	
+	utility.StatusModel Status = 4;
+	string DateCreated = 5;
+	string DateModified = 6;
+	utility.ErrorModel Error = 7;
+	bytes Logo = 8;
+	residence.ResidenceRequest residence = 9;
+	string ResidenceId = 10;
+	string PhoneNumber = 11;
+	string Link = 12;
+	string Price = 13;
+	string Natureofbusiness = 14;
+}
+
+message SerProviderLookupModel {
+	string SerProviderId = 1;
+}
+
+message SerProvidersList {
+	repeated SerProviderRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}
+
+message ResSerProviderLookupModel {
+	string ResidenceId = 1;
+}

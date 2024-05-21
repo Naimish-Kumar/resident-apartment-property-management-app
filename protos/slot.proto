@@ -1,0 +1,56 @@
+syntax = "proto3";
+import "utility.proto";
+import "residence.proto"; 
+import "facility.proto"; 
+
+option csharp_namespace = "RMS.GrpcService";
+
+package slot;
+
+service RpcSlot {
+	rpc InsertSlot (SlotRequest) returns (SlotResponse);
+	rpc UpdateSlot (SlotRequest) returns (SlotResponse);
+	rpc DeleteSlot (SlotLookupModel) returns (SlotResponse);
+	rpc GetSlotById (SlotLookupModel) returns (SlotRequest);
+	rpc GetAllSlots (ResSlotLookupModel) returns (SlotsList);
+	rpc GetAllSlotByFacilitieById (SlotFacilityLookupModel) returns (SlotsList);
+}
+
+message SlotResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+message SlotFacilityLookupModel {
+	string FacilityId = 1;
+	string ResidenceId = 2;
+}
+
+message SlotRequest {
+	string SlotId = 1;
+	string SlotName = 2;
+	string From = 3;	
+	utility.StatusModel Status = 4;
+	string DateCreated = 5;
+	string DateModified = 6;
+	utility.ErrorModel Error = 7;
+	string To = 8;
+	residence.ResidenceRequest residence = 9;
+	string ResidenceId = 10;
+	string People = 11;
+	string FacilityId = 12;
+	facility.FacilityRequest Facility = 13;
+}
+
+message SlotLookupModel {
+	string SlotId = 1;
+}
+
+message SlotsList {
+	repeated SlotRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}
+
+message ResSlotLookupModel {
+	string ResidenceId = 1;
+}

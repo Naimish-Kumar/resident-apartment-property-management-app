@@ -1,0 +1,107 @@
+﻿syntax = "proto3";
+import "utility.proto";
+//import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "RMS.Web";
+
+package residence;
+ 
+ service RpcResidence {
+	rpc InsertResidence (ResidenceRequest) returns (ResidenceResponse);
+	rpc UpdateResidence (ResidenceRequest) returns (ResidenceResponse);
+	rpc DeleteResidence (ResidenceLookupModel) returns (ResidenceResponse);
+	rpc GetResidenceById (ResidenceLookupModel) returns (ResidenceRequest);
+	rpc GetAllResidences (utility.Empty) returns (ResidencesList);
+	rpc GetResidenceAvailableParkingListById (ResidenceLookupModel) returns (ResidencesParkingList);
+}
+
+message ResidencesParkingList {
+	repeated ResidenceParkingResponse Items = 1;
+	utility.ErrorModel Error = 2;
+}
+
+message ResidenceParkingResponse {
+	string ParkingId = 1;
+	string ResidenceId = 2;
+	int32 ParkingNumber = 3;
+	string ParkingName = 4;	
+	string VisitorId = 5;
+	string CheckInDateTime = 6;
+	string CheckOutDateTime = 7;
+}
+
+message ResidenceResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message ResidenceLookupModel {
+	string ResidenceId = 1;
+}
+
+message ResidenceDocLookUpModel {
+	string ResidenceDocId = 1;
+}
+
+message ResidenceRequest {
+	string ResidenceId = 1;
+	string ResidenceName = 2;
+	string PhoneNumber = 3;
+	string OfficeNumber = 4;
+    string EmailAddress = 5;
+    string Address1 = 6;
+    string Address2 = 7;
+    string City = 8;
+	utility.StateListModel State = 9;
+	int32 ZipCode = 10;
+    string Country = 11;
+    string Description = 12;
+	utility.StatusModel Status = 13;
+	optional double Price = 14;
+	string DateCreated = 15;
+	string DateModified = 16;
+	repeated ResidenceDocModel ResidenceDocs = 17;
+	string FileType = 18;
+	string FileName = 19;
+	utility.ResidenceTypeModel ResidenceType = 20;
+	utility.ErrorModel Error = 21;
+	string ManagementId = 22;
+	string ManagementName = 23;
+	repeated ResFacility ResFacility = 24;
+	repeated ResBuilding ResBuilding = 25;
+	string SubscriptionStart = 26;
+	string SubscriptionEnd = 27;
+}
+
+message ResFacility{
+	string FacilityId = 1;
+	string FacilityName = 2;
+}
+
+message ResBuilding{
+	string BuildingId = 1;
+	string BuildingName = 2;
+	string BuildingPrefix = 3;	
+	int32 TotalFloor = 4;
+	int32 UnitPerFloor = 5;
+	string Description = 6;	
+	utility.StatusModel Status = 7;
+	string DateCreated = 8;
+	string DateModified = 9;
+	bool IsUnitCreated = 10;
+}
+
+message ResidenceDocModel{
+	string ResidenceDocId = 1;
+	bytes File = 2;
+	string FileType = 3;
+	string FileName = 4;
+	ResidenceRequest Residence = 5;
+	utility.ErrorModel Error = 6;
+}
+
+message ResidencesList {
+	repeated ResidenceRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}

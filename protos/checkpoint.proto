@@ -1,0 +1,67 @@
+syntax = "proto3";
+import "utility.proto";
+import "residence.proto";
+ 
+
+option csharp_namespace = "RMS.Web";
+
+package checkpoint;
+
+service RpcCheckpoint {
+	rpc CheckpointVisit (CheckpointVisitRequest) returns (CheckpointResponse);
+	rpc InsertCheckpoint (CheckpointRequest) returns (CheckpointResponse);
+	rpc UpdateCheckpoint (CheckpointRequest) returns (CheckpointResponse);
+	rpc DeleteCheckpoint (CheckpointLookupModel) returns (CheckpointResponse);
+	rpc GetCheckpointById (CheckpointLookupModel) returns (CheckpointRequest);
+	rpc GetAllCheckpoints (ResCheckpointLookupModel) returns (CheckpointsList);
+}
+
+message CheckpointResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message CheckpointVisitRequest {
+	string CheckpointId = 1;
+	string UserId = 2;
+	string ResidenceId = 3;
+	bytes Proof = 4;	
+	bool Status = 5;
+	string CheckDate = 6;	
+	string VisiteCheckpointId = 7;
+	utility.ErrorModel Error = 8;
+	string DateCreated = 9;
+	string DateModified = 10;
+	string Location = 11;
+	bytes Proof2 = 12;
+    bytes Proof3 = 13;
+    bytes Proof4 = 14;	 
+}
+
+message CheckpointRequest {
+	string CheckpointId = 1;
+	string Title = 2;
+	optional string Description = 3;	
+	utility.StatusModel Status = 4;
+	string DateCreated = 5;
+	string DateModified = 6;
+	utility.ErrorModel Error = 7;
+	bytes File = 8;
+	residence.ResidenceRequest residence = 9;
+	string ResidenceId = 10;
+	
+}
+
+message CheckpointLookupModel {
+	string CheckpointId = 1;
+}
+
+message CheckpointsList {
+	repeated CheckpointRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}
+
+message ResCheckpointLookupModel {
+	string ResidenceId = 1;
+}

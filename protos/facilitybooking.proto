@@ -1,0 +1,59 @@
+syntax = "proto3";
+import "utility.proto";
+import "user.proto";
+import "facility.proto"; 
+import "slot.proto";
+
+
+option csharp_namespace = "RMS.GrpcService";
+
+package facilitybooking;
+
+service RpcFacilityBooking {
+	rpc InsertFacilityBooking (FacilityBookingRequest) returns (FacilityBookingResponse);
+	rpc UpdateFacilityBooking (FacilityBookingRequest) returns (FacilityBookingResponse);
+	rpc GuardUpdateFacilityBooking (FacilityBookingRequest) returns (FacilityBookingResponse);
+	rpc DeleteFacilityBooking (FacilityBookingLookupModel) returns (FacilityBookingResponse);
+	rpc GetFacilityBookingById (FacilityBookingLookupModel) returns (FacilityBookingRequest);
+	rpc GetAllFacilityBookings (ResidenceFacilityBookingLookupModel) returns (FacilityBookingsList);
+	rpc GetUserFacilityBookingById (UserFacilityBookingLookupModel) returns (FacilityBookingsList);
+}
+
+message FacilityBookingResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message FacilityBookingRequest {
+	string FacilityBookingId = 1;
+	string UserId = 2;
+	string ResidenceId = 3;	
+	string FacilityId = 4;
+	string Date = 5;
+	optional string Remark = 6;
+	utility.StatusModel Status = 7;
+	string DateCreated = 8;
+	string DateModified = 9;
+	utility.ErrorModel Error = 10;
+	user.UserRequest User = 11;
+	facility.FacilityRequest Facility = 12;
+	slot.SlotRequest  Slot= 13;
+	string  SlotId = 14;
+}
+
+message FacilityBookingLookupModel {
+	string FacilityBookingId = 1;
+}
+message UserFacilityBookingLookupModel {
+	string UserId = 1;
+}
+
+message ResidenceFacilityBookingLookupModel {
+	string ResidenceId = 1;
+}
+
+message FacilityBookingsList {
+	repeated FacilityBookingRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}

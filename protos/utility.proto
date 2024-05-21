@@ -1,0 +1,185 @@
+syntax = "proto3";
+
+option csharp_namespace = "RMS.Web";
+
+package utility;
+
+ 
+enum PerpouseOfVisitModel 
+{
+    PerpouseOfVisitNull = 0;
+    Delivery=1;
+    Service =2;
+    PickUp =3;
+    DropOff = 4;
+    FamilyAndFriends = 5;
+}
+
+enum VisitByModel 
+{
+    VisitByNull =0;
+    WalkIn = 1;
+    Bike = 2;
+    Car = 3;		 
+}
+enum PrioritiesModel {
+PrioritiesNull = 0;
+High  = 1;
+Medium  = 2;
+Low = 3;    
+}
+
+enum StatusModel {
+SNull = 0;
+Active = 1;
+Pending = 2;
+Reject = 3;
+Block = 4;
+Finished = 5;
+Processing = 6;
+Suspended=7;
+}
+
+enum PaymentStatusModel{
+Nill = 0;
+Paid = 1;
+NotPaid = 2;
+Refunded = 3;
+Deposit = 4;
+}
+enum AdminpaymentStatusModel
+{
+    NillAdminpaymentStatusModel = 0;
+    PaymentRequested = 1;
+    PaymentVerified = 2;
+    PaymentRejected = 3;
+     
+}
+enum PaymentByModel
+{
+    NillPaymentBy = 0;
+    OnlineTransfer = 1;
+    CounterCash = 2;
+    CounterCard = 3;
+    CounterCheque = 4;
+}
+enum BillModel{
+    BillNill = 0;
+    Maintenance = 1;
+    Renovation = 2;
+    FacilityDepositFees = 3;
+    FacilityUsageFees = 4;
+    Panality = 5;
+    MoveIn = 6;
+    MoveOut = 7;
+}
+enum AnnouncementTypeModel
+{
+    AnnouncementNill = 0;
+    Announcement = 1;
+    Notice = 2;
+    
+}
+
+enum DocBannerTypeModel{
+bNone = 0;
+Banner = 1;
+Document = 2;
+}
+
+enum AccountRoleModel{
+ARNull = 0;
+SuperAdministrator = 1;
+ManagementAdmin = 2;
+SecurityGuard = 3;
+Technician = 4;
+User = 5;
+}
+
+enum GenderModel{
+GNull = 0;
+Male = 1;
+Female = 2;
+NotMentioned = 3;
+}
+
+enum UnitRoleModel{
+URNull = 0;
+Owner = 1;
+Tenant = 2;
+}
+
+enum UnitFurnishTypeModel{
+UFTNull = 0;
+Furnished = 1;
+SemiFurnished = 2;
+NonFurnished = 3;
+}
+
+enum UnitStatusModel{
+USNull = 0;
+Sold = 1;
+UnSold = 2;
+Defective = 3;
+Rejected = 4;
+LoanRejected = 5;
+Requested = 6;
+}
+
+enum UnitTypeModel{
+UTNull = 0;
+FreeHold = 1;
+LeaseHold = 2;
+}
+
+enum NationalityModel{
+NNull = 0;
+Malaysian = 1;
+NonMalaysian = 2;
+}
+
+enum EmailTrackerModel{
+ETNull = 0;
+Registration = 1;
+ForgotPassword = 2;
+Promotion = 3;
+}
+
+enum ResidenceTypeModel{
+RTNull = 0;
+Residential = 1;
+Commercial = 2;
+Industrial = 3;
+Agriculture = 4;
+SpecialPurpose = 5;
+Individual = 6;
+Villa = 7;
+MixedUse = 8;
+}
+
+enum StateListModel{
+SLNull = 0;
+Johor = 1;
+Kedah = 2;
+Kelantan = 3;
+KualaLumpur = 4;
+Labuan = 5;
+Melaka = 6;
+NegeriSembilan = 7;
+Pahang = 8;
+Perak = 9;
+Perlis = 10;
+Penang = 11;
+Sabah = 12;
+Sarawak = 13;
+Selangor = 14;
+Terengganu = 15;
+}
+
+message ErrorModel{
+string Message = 1;
+int32 Code = 2;
+bool IsOk = 3;
+}
+
+message Empty {}

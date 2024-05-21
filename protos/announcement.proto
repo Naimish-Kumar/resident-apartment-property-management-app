@@ -1,0 +1,76 @@
+syntax = "proto3";
+import "utility.proto";
+ 
+
+option csharp_namespace = "RMS.GrpcService";
+
+package announcement;
+
+service RpcAnnouncement {
+	rpc InsertAnnouncement (AnnouncementRequest) returns (AnnouncementResponse);
+	rpc UpdateAnnouncement (AnnouncementRequest) returns (AnnouncementResponse);
+	rpc DeleteAnnouncement (AnnouncementLookupModel) returns (AnnouncementResponse);
+	rpc GetAnnouncementById (AnnouncementLookupModel) returns (AnnouncementRequest);
+	rpc GetAllAnnouncements (ResAnnouncementLookupModel) returns (AnnouncementsList);
+	rpc GetAnnouncementDocById (AnnouncementDocLookupModel) returns (AnnouncementDocsModel);
+	//Mobile
+	rpc GetAnnouncementByUserId (AnnouncementRequest) returns (AnnouncementsList);
+	rpc GetNoticeByUserId (AnnouncementRequest) returns (AnnouncementsList);
+	
+}
+
+message AnnouncementResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message AnnouncementRequest {
+	string AnnouncementId = 1;
+	string Users = 2;
+	repeated AnnouncementDocsModel AnnouncementDocs = 3;
+	string Title = 4;
+	optional string Description = 5;
+	string ResidenceId = 6;
+	string DateCreated = 7;
+	string DateModified = 8;
+	utility.ErrorModel Error = 9;
+	string CreatedByUserId = 10;
+	repeated UserRequestData UserList = 11;
+	utility.AnnouncementTypeModel AnnouncementType = 12;
+}
+
+message UserRequestData{
+	string UserId = 1;
+	string FirstName = 2;
+	string LastName = 3;
+	optional string NRIC = 4;
+    string Email = 5;
+    optional string Passport = 6;
+}
+
+message AnnouncementLookupModel {
+	string AnnouncementId = 1;
+}
+
+message AnnouncementDocLookupModel {
+	string AnnouncementDocId = 1;
+}
+
+message ResAnnouncementLookupModel {
+	string ResidenceId = 1;
+}
+
+message AnnouncementsList {
+	repeated AnnouncementRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}
+
+message AnnouncementDocsModel{
+	string AnnouncementDocId = 1;
+	bytes File = 2;
+	string FileType = 3;
+	string FileName = 4;
+	AnnouncementRequest Announcement = 5;
+	utility.ErrorModel Error = 6;
+}

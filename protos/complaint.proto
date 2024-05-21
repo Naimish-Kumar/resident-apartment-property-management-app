@@ -1,0 +1,65 @@
+syntax = "proto3";
+import "utility.proto";
+import "user.proto";
+ 
+
+option csharp_namespace = "RMS.GrpcService";
+
+package complaint;
+
+service RpcComplaint {
+	rpc InsertComplaint (ComplaintRequest) returns (ComplaintResponse);
+	rpc UpdateComplaint (ComplaintRequest) returns (ComplaintResponse);
+	rpc DeleteComplaint (ComplaintLookupModel) returns (ComplaintResponse);
+	rpc GetComplaintById (ComplaintLookupModel) returns (ComplaintRequest);
+	rpc GetAllComplaints (ResComplaintLookupModel) returns (ComplaintsList);
+	rpc GetComplaintDocById (ComplaintDocLookupModel) returns (ComplaintDocsModel);
+}
+
+message ComplaintResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message ComplaintRequest {
+	string ComplaintId = 1;
+	user.UserRequest User = 2;
+	repeated ComplaintDocsModel ComplaintDocs = 3;
+	string Subject = 4;
+	optional string Message = 5;
+	utility.StatusModel Status = 6;
+	string DateCreated = 7;
+	string DateModified = 8;
+	utility.ErrorModel Error = 9;
+	string UserId = 10;
+	string ResidenceId = 11;
+	string BuildingName = 12;
+	string UnitNumber = 13;
+}
+
+message ComplaintLookupModel {
+	string ComplaintId = 1;
+}
+
+message ComplaintDocLookupModel {
+	string ComplaintDocId = 1;
+}
+
+message ResComplaintLookupModel {
+	string ResidenceId = 1;
+}
+
+message ComplaintsList {
+	repeated ComplaintRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}
+
+message ComplaintDocsModel{
+	string ComplaintDocId = 1;
+	bytes File = 2;
+	string FileType = 3;
+	string FileName = 4;
+	ComplaintRequest Complaint = 5;
+	utility.ErrorModel Error = 6;
+}

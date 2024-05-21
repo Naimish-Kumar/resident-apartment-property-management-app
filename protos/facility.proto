@@ -1,0 +1,44 @@
+syntax = "proto3";
+import "utility.proto";
+ 
+ 
+option csharp_namespace = "RMS.GrpcService";
+
+package facility;
+
+service RpcFacility {
+	rpc InsertFacility (FacilityRequest) returns (FacilityResponse);
+	rpc UpdateFacility (FacilityRequest) returns (FacilityResponse);
+	rpc DeleteFacility (FacilityLookupModel) returns (FacilityResponse);
+	rpc GetFacilityById (FacilityLookupModel) returns (FacilityRequest);
+	rpc GetAllFacilities (utility.Empty) returns (FacilitiesList);
+	rpc GetAllFacilitiesByResidenceById (ResidenceFacilityLookupModel) returns (FacilitiesList);
+}
+
+message FacilityResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message FacilityRequest {
+	string FacilityId = 1;
+	string Name = 2;
+	optional string Description = 3;	
+	utility.StatusModel Status = 4;
+	string DateCreated = 5;
+	string DateModified = 6;
+	utility.ErrorModel Error = 7;
+}
+message FacilityLookupModel {
+	string FacilityId = 1;
+}
+
+message ResidenceFacilityLookupModel {
+	string ResidenceId = 1;
+}
+
+message FacilitiesList {
+	repeated FacilityRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}

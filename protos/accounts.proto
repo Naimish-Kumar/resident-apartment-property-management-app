@@ -1,0 +1,95 @@
+syntax = "proto3";
+import "utility.proto";
+import "user.proto";
+import "unit.proto";
+ 
+
+option csharp_namespace = "RMS.GrpcService";
+
+package accounts;
+
+ 
+service RpcAccounts {
+	rpc InsertAccounts (AccountsRequest) returns (AccountsResponse);
+	rpc UpdateAccounts (AccountsRequest) returns (AccountsResponse);
+	rpc StatusUpdateAccounts (AccountsRequest) returns (AccountsResponse);
+	rpc AdminStatusUpdateAccounts (AccountsRequest) returns (AccountsResponse);
+	rpc UserStatusUpdateAccounts (AccountsRequest) returns (AccountsResponse);
+	rpc DeleteAccounts (AccountsLookupModel) returns (AccountsResponse);
+	rpc GetAccountsById (AccountsLookupModel) returns (AccountsRequest);
+	rpc GetAllAccounts (ResidenceAccountsLookupModel) returns (AccountsList);
+	rpc GetUnitAccountsById (UnitAccountsRequest) returns (UnitAccountsResponse);
+	rpc GetUserUnitAccountsById (UnitAccountsRequest) returns (UnitAccountsResponse);
+	rpc GetUnitAllAccounts (ResidenceAccountsLookupModel) returns (AccountsList);
+	//Mobile App
+	rpc GetAllAccountsMaintanence (ResidenceAccountsLookupModel) returns (AccountsList);
+	rpc GetAllAccountsRenovation (ResidenceAccountsLookupModel) returns (AccountsList);
+	rpc GetAllAccountsReport (ResidenceAccountsLookupModel) returns (AccountsList);
+
+}
+
+message AccountsResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message AccountsRequest {
+	string AccountsId = 1;
+	user.UserRequest User = 2;
+	string FeeTitle = 3;
+	double Fees = 4;
+	optional string Description = 5;	
+	utility.PaymentStatusModel PaymentStatus = 6;
+	string DateCreated = 7;
+	string DateModified = 8;
+	utility.ErrorModel Error = 9;
+	string ResidenceId = 10;
+	string CreatedByUserId = 11;
+	repeated user.UserRequest UsersList = 12;
+	utility.BillModel PaymentFor = 13;
+	string UnitId = 14;
+	string Repeat = 15;
+	string SendDate = 16;
+	bool IsClose = 17;
+	bool VerifiedByAdmin = 18;
+	utility.PaymentByModel PaymentBy = 19;
+	bytes PaymentProof = 20;
+	utility.AdminpaymentStatusModel AdminpaymentStatus = 21;
+}
+message UnitAccountsRequest {
+	string UnitId = 1;
+}
+message UnitAccountsResponse {
+	string MaintainPending = 1;
+	string RenovationDeposite = 2;
+	string Renovationrefund = 3;
+	string PenantyPending = 4;
+	string FacilitiesDeposite = 5;
+	string FacilitiesUsagePending = 6;
+	repeated AccountsRequest MaintainItems = 7;
+	repeated AccountsRequest RenovationItems = 8;
+	repeated AccountsRequest PenantyItems = 9;
+	repeated AccountsRequest FacilitiesItems = 10;
+	unit.OwnerTenantIfo OwnerTenantIfo =11;
+	unit.UnitRequest UnitIfo =12;
+	utility.ErrorModel Error = 13;
+}
+
+message AccountsLookupModel {
+	string AccountsId = 1;
+}
+
+message ResidenceAccountsLookupModel {
+	string ResidenceId = 1;
+	string User = 2;
+	utility.PaymentStatusModel PaymentStatus = 3;
+	utility.BillModel PaymentFor = 4;
+	string DateCreated = 5;
+	string DateModified = 6;
+}
+
+message AccountsList {
+	repeated AccountsRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}

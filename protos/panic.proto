@@ -1,0 +1,45 @@
+syntax = "proto3";
+import "utility.proto";
+ 
+ 
+
+option csharp_namespace = "RMS.GrpcService";
+
+package panic;
+
+ 
+service RpcPanic {
+	rpc InsertPanic (PanicRequest) returns (PanicResponse); 
+	rpc DeletePanic (PanicLookupModel) returns (PanicResponse); 
+	rpc GetAllPanics (PanicLookupModel) returns (PanicsList);
+	 
+}
+
+message PanicResponse {
+	string Response = 1;
+	bool IsOk = 2;	
+	utility.ErrorModel Error = 3;
+}
+
+message PanicRequest {
+	string PanicId = 1;	 	
+	string UnitId = 2;
+	string User = 3;
+	optional string Message = 4;	 
+	string DateCreated = 5; 
+	utility.ErrorModel Error = 6;	 
+	string ResidenceId = 7;
+	string MobileNumber = 8;
+	 
+} 
+message PanicLookupModel {
+	string ResidenceId = 1;
+	string PanicId = 2;	
+}
+
+message PanicsList {
+	repeated PanicRequest Items = 1;
+	utility.ErrorModel Error = 2;
+}
+
+ 
